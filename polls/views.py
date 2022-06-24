@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
 
-from polls.models import Question
+from polls.models import Choice, Question
 
 # Create your views here.
 
@@ -24,4 +24,7 @@ def results(request, question_id):
     return HttpResponse(response % question_id)
 
 def vote(request, question_id):
+    choice = get_object_or_404(Choice, pk=question_id)
+    choice.votes += 1
+    choice.save()
     return HttpResponse("You're voting on question %s." % question_id)

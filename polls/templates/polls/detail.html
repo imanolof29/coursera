@@ -2,5 +2,9 @@
 <ul>
 {% for choice in question.choice_set.all %}
     <li>{{ choice.choice_text }}</li>
+    <form method="POST" action="{% url 'polls:vote' choice.id %}">
+        {% csrf_token %}
+        <button type="submit">Vote</button>
+    </form>
 {% endfor %}
 </ul>

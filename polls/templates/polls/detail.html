@@ -1,10 +1,13 @@
 <h1>{{ question.question_text }}</h1>
 <ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }}</li>
+    
     <form method="POST" action="{% url 'polls:vote' choice.id %}">
         {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" id="{{choice.id}}" name="choices" value="{{choice.choice_text}}"/>
+            <label for="{{choice.id}}">{{choice.choice_text}}</label>
+        {% endfor %}
         <button type="submit">Vote</button>
     </form>
-{% endfor %}
+
 </ul>
